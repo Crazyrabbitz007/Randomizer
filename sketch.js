@@ -15,15 +15,29 @@ let pets = [{
 
 let randomIndex;
 let animating = false;
+let pet = [];
+let imageCounter = 0;
+let button;
+
+function preload() {
+  for (let i = 0; i <= 3; i++) {
+    pet[i] = loadImage("assets/pet_" + i + ".jpg")
+  }
+}
 
 function setup() {
   createCanvas(400, 400);
   background(200);
   textSize(16);
+  imageMode(CENTER);
+  frameRate(3);
 
-  text("click to randomize", 50, 50);
+  text("click to randomize", width/2, height/2);
+  button = createButton("Click to Randomize");
+  button.mousePressed(buttonPressed);
 
-  setTimeout(changeBackground, 1000);
+
+  // setTimeout(changeBackground, 1000);
   // randomIndex = int(random(pets.length));
   //
   // console.log(pets[randomIndex].name);
@@ -45,7 +59,15 @@ function draw() {
 
 
   if (animating == true) {
-    ellipse(random(width), random(height), random(50, 200));
+    clear();
+    image(pet[imageCounter], width / 2, height / 2);
+
+    if (imageCounter < pet.length - 1) {
+      imageCounter++;
+      console.log(imageCounter);
+    } else {
+      imageCounter = 0;
+    }
   }
 }
 
@@ -65,10 +87,13 @@ function randomizer() {
   animating = false;
 
   if (pets[0]) {
-    background(random(200, 255));
+    // background(random(200, 255));
+    clear();
     randomIndex = int(random(pets.length));
-    text(`${pets[randomIndex].name} 's favorite color inspect
-      ${pets [randomIndex].color}`, 50, 50);
+    image(random(pet), width / 2, height / 2);
+    text(`${pets[randomIndex].name}'s favorite color is
+      ${pets [randomIndex].color}`, width / 2, height - 25);
+
     // text(pets[randomIndex].name + "'s favorite color is " +
     // pets [randomIndex].color, 50, 50);
 
@@ -80,7 +105,7 @@ function randomizer() {
   }
 }
 
-function mousePressed() {
+function buttonPressed() {
   animating = true;
   setTimeout(randomizer, 2000);
 
