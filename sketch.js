@@ -1,27 +1,42 @@
-// my pets
-let pets = [{
-  name: "Scruffy",
+// my words and colors
+let words = [{
+  name: "Pretentious",
+  color: "Royal Purple"
+}, {
+  name: "Envious",
+  color: "Dark Green"
+}, {
+  name: "Beautiful",
+  color: "Warm Orange"
+}, {
+  name: "Ferocious",
+  color: "Deep Blue"
+}, {
+  name: "Teeny",
+  color: "Radiant Yellow"
+}, {
+  name: "Berserk",
+  color: "Dark Red"
+}, {
+  name: "Groovy",
+  color: "Bright Green"
+}, {
+  name: "Meaty",
   color: "Brown"
 }, {
-  name: "Boxy",
-  color: "Light Brown"
-}, {
-  name: "Mandy",
-  color: "Black and White"
-}, {
-  name: "Blue",
-  color: "Deep Blue"
+  name: "Hospitable",
+  color: "Hot Pink"
 }];
 
 let randomIndex;
 let animating = false;
-let pet = [];
+let places = [];
 let imageCounter = 0;
 let button;
 
 function preload() {
-  for (let i = 0; i <= 3; i++) {
-    pet[i] = loadImage("assets/pet_" + i + ".jpg")
+  for (let i = 1; i <= 10; i++) {
+    places[i] = loadImage("assets/places_" + i + ".jpg")
   }
 }
 
@@ -30,29 +45,14 @@ function setup() {
   background(200);
   textSize(16);
   imageMode(CENTER);
-  frameRate(3);
+  frameRate(120);
+  r = random(255);
+  g = random(255);
+  b = random(255);
 
-  text("click to randomize", width/2, height/2);
-  button = createButton("Click to Randomize");
+  text("Click to Find Meaning in Something", width / 5, height / 2);
+  button = createButton("Click to Find Meaning in Something");
   button.mousePressed(buttonPressed);
-
-
-  // setTimeout(changeBackground, 1000);
-  // randomIndex = int(random(pets.length));
-  //
-  // console.log(pets[randomIndex].name);
-  // text(pets[randomIndex].name, 50, 50);
-  //
-  // pets.splice(randomIndex, 1);
-  // console.log(pets);
-
-  // console.log("initial array is ");
-  // console.log(pets);
-  //
-  // pets.splice(4,1);
-  // console.log("array after splice")
-  // console.log(pets);
-
 }
 
 function draw() {
@@ -60,13 +60,13 @@ function draw() {
 
   if (animating == true) {
     clear();
-    image(pet[imageCounter], width / 2, height / 2);
+    image(places[imageCounter], width / 2, height / 2);
 
-    if (imageCounter < pet.length - 1) {
+    if (imageCounter < places.length - 2) {
       imageCounter++;
       console.log(imageCounter);
     } else {
-      imageCounter = 0;
+      imageCounter = 1;
     }
   }
 }
@@ -86,22 +86,22 @@ function changeBackground() {
 function randomizer() {
   animating = false;
 
-  if (pets[0]) {
+  if (words[0]) {
     // background(random(200, 255));
     clear();
-    randomIndex = int(random(pets.length));
-    image(random(pet), width / 2, height / 2);
-    text(`${pets[randomIndex].name}'s favorite color is
-      ${pets [randomIndex].color}`, width / 2, height - 25);
+    randomIndex = int(random(words.length));
+    image(random(places), width / 2, height / 2);
+    fill(r,g,b);
+    text(`${words[randomIndex].name}
+    and your color is
+    ${words [randomIndex].color}`, width / 2, height - 200);
 
-    // text(pets[randomIndex].name + "'s favorite color is " +
-    // pets [randomIndex].color, 50, 50);
-
-    pets.splice(randomIndex, 1);
+    words.splice(randomIndex, 1);
 
   } else {
     background(random(200, 255));
-    text("nothing left!", 50, 50);
+    text("You have found meaning in these words and images.", 10, 50);
+    text("Now find the meaning in yourself.", 25, 100)
   }
 }
 
